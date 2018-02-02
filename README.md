@@ -18,6 +18,7 @@ common-event
 common-model
 common-service
 common-utility
+common-password
 common-user
 application
 ```
@@ -33,6 +34,7 @@ For the App to run, you will need to Download/Clone these services
 ** common-java
 ** common-model
 ** common-services
+** common-password
 ** common-user
 ** common-utility
 
@@ -56,25 +58,15 @@ Within the API are these particular methods:
 * /login - POST [Logins in a user, using from their email address and their password] - Returns User Object
 * 
 
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Deployment has already been done on AWS - however, this project is packaged as a War. If you need to change this, you'll need to change Application.java in application to the standard Spring Boot
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Swagger](https://swagger.io/) - API Tooling
 * [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Spring Boot](https://projects.spring.io/spring-boot/) - For the Application
 
 ## Contributing
 

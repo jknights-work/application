@@ -35,17 +35,17 @@ public class UserRequestController {
     }
 
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
-    public boolean createUser(@RequestParam(value="emailAddress") String emailAddress, @RequestParam(value="forename") String forename, 
+    public User createUser(@RequestParam(value="emailAddress") String emailAddress, @RequestParam(value="forename") String forename, 
             @RequestParam(value="lastname") String lastname, @RequestParam(value="password") String password, String[] options) {
         
-        boolean result = false;
+        User result = null;
         
         if (userService.isRunning()) {
             try {
                 User user = userService.createUser(emailAddress, sanitiseInput(forename), sanitiseInput(lastname), sanitiseInput(password), true);
                 if (user != null) {
                     LOG.debug("User Created");
-                    result = true;
+                    result = user;
                 } else {
                     LOG.debug("Duplicate User");
                 }
