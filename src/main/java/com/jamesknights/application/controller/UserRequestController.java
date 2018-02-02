@@ -42,7 +42,7 @@ public class UserRequestController {
         
         if (userService.isRunning()) {
             try {
-                User user = userService.createUser(sanitiseInput(emailAddress), sanitiseInput(forename), sanitiseInput(lastname), sanitiseInput(password), true);
+                User user = userService.createUser(emailAddress, sanitiseInput(forename), sanitiseInput(lastname), sanitiseInput(password), true);
                 if (user != null) {
                     LOG.debug("User Created");
                     result = true;
@@ -112,7 +112,7 @@ public class UserRequestController {
         
         if (userService.isRunning()) {
             try {
-                 result = userService.userLogin(sanitiseInput(password), sanitiseInput(emailAddress));
+                 result = userService.userLogin(sanitiseInput(password), emailAddress);
             } catch (Exception e) {
                 LOG.error("Unable to login User" + e.getMessage());
             }
@@ -129,7 +129,7 @@ public class UserRequestController {
         
         if (userService.isRunning()) {
             try {
-                 result = userService.changePassword(sanitiseInput(oldPassword), sanitiseInput(newPassword), sanitiseInput(emailAddress));
+                 result = userService.changePassword(sanitiseInput(oldPassword), sanitiseInput(newPassword), emailAddress);
             } catch (Exception e) {
                 LOG.error("Unable to change User password" + e.getMessage());
             }
@@ -149,9 +149,13 @@ public class UserRequestController {
     private HashMap<String, Object> sanitiseMap (HashMap<String, Object> input) {
         if (input != null) {
             for (Map.Entry entry : input.entrySet()) {
-                entry.setValue(sanitiseInput((String) entry.getValue()));
+                if (!entry.getKey().equals("emailAddress")) {
+                    entry.setValue(sanitiseInput((String) entry.getValue()));
+                }
+                
             }
         }
         return input;
     }
+    
 }
