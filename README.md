@@ -29,14 +29,14 @@ The App is packaged as a WAR file, so it can be run on a Tomcat container.
 
 For the App to run, you will need to Download/Clone these services
 
-* Download/Clone the App Services
-** common-event
-** common-java
-** common-model
-** common-services
-** common-password
-** common-user
-** common-utility
+# Download/Clone the App Services
+* common-event
+* common-java
+* common-model
+* common-services
+* common-password
+* common-user
+* common-utility
 
 
 ## Testing
