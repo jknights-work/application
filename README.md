@@ -29,7 +29,7 @@ The App is packaged as a WAR file, so it can be run on a Tomcat container.
 
 For the App to run, you will need to Download/Clone these services
 
-# Download/Clone the App Services
+#### Download/Clone the App Services
 * common-event
 * common-java
 * common-model
@@ -56,7 +56,7 @@ Within the API are these particular methods:
 * /updateUser - POST [this accepts JSON of the information you wish to change, which are: "emailAddress", "forename", "lastname" - an example would be {"emailAddress" : "new@email.com"}] - Returns Boolean
 * /deleteUser - POST [Deletes a user from their uId] - Returns Boolean
 * /login - POST [Logins in a user, using from their email address and their password] - Returns User Object
-* 
+```
 
 ## Deployment
 
@@ -67,27 +67,3 @@ Deployment has already been done on AWS - however, this project is packaged as a
 * [Swagger](https://swagger.io/) - API Tooling
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Spring Boot](https://projects.spring.io/spring-boot/) - For the Application
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
