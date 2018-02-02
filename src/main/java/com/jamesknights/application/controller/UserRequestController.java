@@ -5,7 +5,10 @@ import com.jamesknights.common.user.service.UserService;
 import com.jamesknights.common.user.service.impl.LocalUserService;
 import com.jamesknights.common.util.JSONTool;
 import java.util.HashMap;
+import java.util.Map;
 import org.jboss.logging.Logger;
+import org.owasp.html.PolicyFactory;
+import org.owasp.html.Sanitizers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +21,7 @@ public class UserRequestController {
     private static final Logger LOG = Logger.getLogger(UserRequestController.class);
     private UserService userService;
     private final JSONTool jsonTool= new JSONTool();
+    private final PolicyFactory policy = (PolicyFactory) Sanitizers.FORMATTING.and(Sanitizers.LINKS);
     
     @Bean
     private UserService userService() {
@@ -38,7 +42,7 @@ public class UserRequestController {
         
         if (userService.isRunning()) {
             try {
-                User user = userService.createUser(emailAddress, forename, lastname, password, true);
+                User user = userService.createUser(sanitiseInput(emailAddress), sanitiseInput(forename), sanitiseInput(lastname), sanitiseInput(password), true);
                 if (user != null) {
                     LOG.debug("User Created");
                     result = true;
@@ -76,7 +80,7 @@ public class UserRequestController {
         
         if (userService.isRunning()) {
             try {
-                 result = userService.updateUser(uId, request);
+                 result = userService.updateUser(uId, sanitiseMap(request));
             } catch (Exception e) {
                 LOG.error("Unable to create User" + e.getMessage());
             }
@@ -108,7 +112,7 @@ public class UserRequestController {
         
         if (userService.isRunning()) {
             try {
-                 result = userService.userLogin(password, emailAddress);
+                 result = userService.userLogin(sanitiseInput(password), sanitiseInput(emailAddress));
             } catch (Exception e) {
                 LOG.error("Unable to login User" + e.getMessage());
             }
@@ -125,12 +129,29 @@ public class UserRequestController {
         
         if (userService.isRunning()) {
             try {
-                 result = userService.changePassword(oldPassword, newPassword, emailAddress);
+                 result = userService.changePassword(sanitiseInput(oldPassword), sanitiseInput(newPassword), sanitiseInput(emailAddress));
             } catch (Exception e) {
                 LOG.error("Unable to change User password" + e.getMessage());
             }
         }
         
         return result;
+    }
+    
+    private String sanitiseInput (String input) {
+        String result = null;
+        if (!input.isEmpty()) {
+            result = policy.sanitize(input);
+        }
+        return result;
+    }
+    
+    private HashMap<String, Object> sanitiseMap (HashMap<String, Object> input) {
+        if (input != null) {
+            for (Map.Entry entry : input.entrySet()) {
+                entry.setValue(sanitiseInput((String) entry.getValue()));
+            }
+        }
+        return input;
     }
 }
