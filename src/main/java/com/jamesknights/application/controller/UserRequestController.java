@@ -10,6 +10,9 @@ import org.jboss.logging.Logger;
 import org.owasp.html.PolicyFactory;
 import org.owasp.html.Sanitizers;
 import org.springframework.context.annotation.Bean;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +36,10 @@ public class UserRequestController {
     public UserRequestController() {
         
     }
-
+    
+    @CrossOrigin(origins = "http://localhost:8383")
+    @MessageMapping("/user/create")
+    @SendTo("/user/created")
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
     public User createUser(@RequestParam(value="emailAddress") String emailAddress, @RequestParam(value="forename") String forename, 
             @RequestParam(value="lastname") String lastname, @RequestParam(value="password") String password, String[] options) {
