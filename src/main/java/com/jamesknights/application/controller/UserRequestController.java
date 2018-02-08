@@ -37,7 +37,7 @@ public class UserRequestController {
         
     }
     
-    @CrossOrigin(origins = "http://localhost:8383")
+    @CrossOrigin
     @MessageMapping("/user/create")
     @SendTo("/user/created")
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)

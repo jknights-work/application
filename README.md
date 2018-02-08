@@ -1,4 +1,4 @@
-# Holiday Extras API Project
+# User API Project
 
 This is the project for the Web Development API Task for holidayextras. The project has been built using Spring Boot and using a "micro services" architecture. The other services are required to build this App, these are listed in the prerequisites. The App has an in memory JPA Database, which is used for the API testing.
 
