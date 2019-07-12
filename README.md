@@ -45,7 +45,7 @@ Each Service has JUnit tests which are run on build, swagger is used for the tes
 
 ### AWS Hosted App
 
-* [AWS - Swagger UI](http://www.jamesknights.co.uk/holiday-extras-api/swagger-ui.html)
+* - Unhosted at the moment
 
 
 ```
